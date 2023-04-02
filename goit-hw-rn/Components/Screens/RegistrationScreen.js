@@ -1,4 +1,10 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export function RegistrationScreen() {
   return (
@@ -23,10 +29,15 @@ export function RegistrationScreen() {
         secureTextEntry={true}
         textContentType="password"
       />
-      {/* <View style={{ marginTop: "43" }}></View> */}
-      <Button title="Зареєструватись" color="#FF6C00" />
 
-      {/* <Button title="Вже маєте аккаунт? Увійти" color="#FFFFFF" /> */}
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.registrationForm__registerBtn}
+      >
+        <Text style={styles.registrationForm__registerBtnText}>
+          Зареєструватись
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -45,6 +56,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#212121",
     fontSize: 30,
+    fontWeight: 500,
     lineHeight: 35,
     marginTop: 92,
     marginBottom: 32,
@@ -58,5 +70,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#F6F6F6",
     borderColor: "#E8E8E8",
     borderRadius: 8,
+  },
+  registrationForm__registerBtn: {
+    backgroundColor: "#FF6C00",
+    height: 50,
+    borderRadius: 100,
+    marginTop: 43,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  registrationForm__registerBtnText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    lineHeight: 19,
   },
 });

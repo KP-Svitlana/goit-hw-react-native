@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   backgroundImg: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
-    // alignItems: "center",
+    justifyContent: "flex-end",
   },
 });
