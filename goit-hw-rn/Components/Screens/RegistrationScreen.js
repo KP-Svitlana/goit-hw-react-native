@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   View,
+  Platform,
 } from "react-native";
 
 export function RegistrationScreen() {
@@ -38,15 +39,21 @@ export function RegistrationScreen() {
           Зареєструватись
         </Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.registrationForm__logInBtn}
+      >
+        <Text style={styles.registrationForm__logInBtnText}>
+          Вже є аккаунт? Увійти
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   registrationForm: {
-    // flex: 1,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#FFFFFF",
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
@@ -83,5 +90,14 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     lineHeight: 19,
+  },
+  registrationForm__logInBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 16,
+    marginBottom: 45,
+  },
+  registrationForm__logInBtnText: {
+    color: "#1B4371",
   },
 });

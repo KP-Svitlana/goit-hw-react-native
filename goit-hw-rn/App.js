@@ -1,5 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { RegistrationScreen } from "./Components/Screens/RegistrationScreen";
 
 export default function App() {
@@ -9,7 +15,12 @@ export default function App() {
         source={require("./assets/images/photoBG.png")}
         style={styles.backgroundImg}
       >
-        <RegistrationScreen />
+        <KeyboardAvoidingView
+          style={styles.keyboardContainer}
+          behavior={Platform.OS === "ios" ? "padding" : null}
+        >
+          <RegistrationScreen />
+        </KeyboardAvoidingView>
       </ImageBackground>
 
       <StatusBar style="auto" />
@@ -28,4 +39,5 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "flex-end",
   },
+  // keyboardContainer: { flex: 1 },
 });
