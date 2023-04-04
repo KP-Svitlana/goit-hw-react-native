@@ -8,6 +8,7 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
+  Image,
 } from "react-native";
 
 const initialState = {
@@ -44,6 +45,14 @@ export function RegistrationScreen() {
   return (
     <TouchableWithoutFeedback onPress={keyboardOff}>
       <View style={styles.registrationForm}>
+        <Image
+          source={require("../../assets/images/photo_ava.png")}
+          style={styles.registrationForm__img}
+        />
+        <Image
+          source={require("../../assets/images/add.png")}
+          style={styles.registrationForm__svg}
+        />
         <Text style={styles.registrationForm__title}>Регістрація</Text>
         <TextInput
           style={{
@@ -162,6 +171,21 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 25,
     paddingHorizontal: 16,
   },
+  registrationForm__img: {
+    position: "absolute",
+    top: -60,
+    right: 127,
+    width: 120,
+    height: 120,
+  },
+  registrationForm__svg: {
+    position: "absolute",
+    top: 20,
+    right: 115,
+    width: 25,
+    height: 25,
+  },
+
   registrationForm__title: {
     textAlign: "center",
     color: "#212121",
