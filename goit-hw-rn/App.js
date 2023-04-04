@@ -20,8 +20,8 @@ export default function App() {
           style={styles.keyboardContainer}
           behavior={Platform.OS === "ios" ? "padding" : null}
         >
-          <RegistrationScreen />
-          {/* <LoginScreen /> */}
+          {/* <RegistrationScreen /> */}
+          <LoginScreen />
         </KeyboardAvoidingView>
       </ImageBackground>
 

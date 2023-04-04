@@ -8,6 +8,7 @@ import {
   View,
   Keyboard,
   TouchableWithoutFeedback,
+  Button,
 } from "react-native";
 
 const initialState = {
@@ -22,6 +23,7 @@ export function LoginScreen() {
     password: false,
   });
   const [state, setState] = useState(initialState);
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const keyboardOff = () => {
     setIsInputFocused(false);
@@ -67,7 +69,7 @@ export function LoginScreen() {
             borderColor: isFocused.password ? "#FF6C00" : "#E8E8E8",
           }}
           placeholder="Пароль"
-          secureTextEntry={true}
+          secureTextEntry={isPasswordShow ? false : true}
           textContentType="password"
           value={state.password}
           onFocus={() => {
@@ -81,6 +83,31 @@ export function LoginScreen() {
             setState((prevState) => ({ ...prevState, password: value }))
           }
         />
+        {isPasswordShow ? (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.registrationForm__passwordShowBtn}
+            onPress={() => {
+              setIsPasswordShow(false);
+            }}
+          >
+            <Text style={styles.registrationForm__passwordShowBtnText}>
+              Сховати
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.registrationForm__passwordShowBtn}
+            onPress={() => {
+              setIsPasswordShow(true);
+            }}
+          >
+            <Text style={styles.registrationForm__passwordShowBtnText}>
+              Показати
+            </Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity
           activeOpacity={0.7}
@@ -148,4 +175,12 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   loginForm__registerBtnText: { color: "#1B4371" },
+  registrationForm__passwordShowBtn: {
+    position: "absolute",
+    top: 180,
+    right: 32,
+  },
+  registrationForm__passwordShowBtnText: {
+    color: "#1B4371",
+  },
 });

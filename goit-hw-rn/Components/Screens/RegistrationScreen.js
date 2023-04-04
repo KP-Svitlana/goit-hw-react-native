@@ -24,6 +24,7 @@ export function RegistrationScreen() {
     password: false,
   });
   const [state, setState] = useState(initialState);
+  const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const keyboardOff = () => {
     setIsInputFocused(false);
@@ -89,7 +90,7 @@ export function RegistrationScreen() {
           }}
           value={state.password}
           placeholder="Пароль"
-          secureTextEntry={true}
+          secureTextEntry={isPasswordShow ? false : true}
           textContentType="password"
           onFocus={() => {
             setIsInputFocused(true);
@@ -102,6 +103,31 @@ export function RegistrationScreen() {
             setState((prevState) => ({ ...prevState, password: value }))
           }
         />
+        {isPasswordShow ? (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.registrationForm__passwordShowBtn}
+            onPress={() => {
+              setIsPasswordShow(false);
+            }}
+          >
+            <Text style={styles.registrationForm__passwordShowBtnText}>
+              Сховати
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.registrationForm__passwordShowBtn}
+            onPress={() => {
+              setIsPasswordShow(true);
+            }}
+          >
+            <Text style={styles.registrationForm__passwordShowBtnText}>
+              Показати
+            </Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity
           activeOpacity={0.7}
@@ -121,7 +147,7 @@ export function RegistrationScreen() {
           }}
         >
           <Text style={styles.registrationForm__logInBtnText}>
-            Вже є аккаунт? Увійти
+            Вже є обліковий запис? Увійти
           </Text>
         </TouchableOpacity>
       </View>
@@ -174,6 +200,14 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   registrationForm__logInBtnText: {
+    color: "#1B4371",
+  },
+  registrationForm__passwordShowBtn: {
+    position: "absolute",
+    top: 306,
+    right: 32,
+  },
+  registrationForm__passwordShowBtnText: {
     color: "#1B4371",
   },
 });
