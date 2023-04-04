@@ -1,54 +1,79 @@
+import { useState } from "react";
+
 import {
   TouchableOpacity,
   StyleSheet,
   Text,
   TextInput,
   View,
-  Platform,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 export function RegistrationScreen() {
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const keyboardOff = () => {
+    setIsInputFocused(false);
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.registrationForm}>
-      <Text style={styles.registrationForm__title}>Регістрація</Text>
-      <TextInput
-        style={styles.registrationForm__input}
-        // value={login}
-        placeholder="Логін"
-        textContentType="name"
-      />
-      <TextInput
-        style={styles.registrationForm__input}
-        // value={email}
-        placeholder="Адреса електронної пошти"
-        textContentType="emailAddress"
-      />
-      <TextInput
-        style={styles.registrationForm__input}
-        // value={password}
-        placeholder="Пароль"
-        secureTextEntry={true}
-        textContentType="password"
-      />
+    <TouchableWithoutFeedback onPress={keyboardOff}>
+      <View style={styles.registrationForm}>
+        <Text style={styles.registrationForm__title}>Регістрація</Text>
+        <TextInput
+          style={styles.registrationForm__input}
+          // value={login}
+          placeholder="Логін"
+          textContentType="name"
+          onFocus={() => {
+            setIsInputFocused(true);
+          }}
+        />
+        <TextInput
+          style={styles.registrationForm__input}
+          // value={email}
+          placeholder="Адреса електронної пошти"
+          textContentType="emailAddress"
+          onFocus={() => {
+            setIsInputFocused(true);
+          }}
+        />
+        <TextInput
+          style={styles.registrationForm__input}
+          // value={password}
+          placeholder="Пароль"
+          secureTextEntry={true}
+          textContentType="password"
+          onFocus={() => {
+            setIsInputFocused(true);
+          }}
+        />
 
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.registrationForm__registerBtn}
-      >
-        <Text style={styles.registrationForm__registerBtnText}>
-          Зареєструватись
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.registrationForm__registerBtn}
+          onPress={keyboardOff}
+        >
+          <Text style={styles.registrationForm__registerBtnText}>
+            Зареєструватись
+          </Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.registrationForm__logInBtn}
-      >
-        <Text style={styles.registrationForm__logInBtnText}>
-          Вже є аккаунт? Увійти
-        </Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{
+            ...styles.registrationForm__logInBtn,
+            marginBottom: isInputFocused ? 32 : 78,
+          }}
+        >
+          <Text style={styles.registrationForm__logInBtnText}>
+            Вже є аккаунт? Увійти
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -95,7 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 16,
-    marginBottom: 45,
+    // marginBottom: 78,
   },
   registrationForm__logInBtnText: {
     color: "#1B4371",
