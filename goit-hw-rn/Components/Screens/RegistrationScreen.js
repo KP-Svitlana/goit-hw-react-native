@@ -10,12 +10,21 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+const initialState = {
+  login: "",
+  email: "",
+  password: "",
+};
+
 export function RegistrationScreen() {
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [state, setState] = useState(initialState);
 
   const keyboardOff = () => {
     setIsInputFocused(false);
     Keyboard.dismiss();
+    console.log(state);
+    setState(initialState);
   };
 
   return (
@@ -24,31 +33,40 @@ export function RegistrationScreen() {
         <Text style={styles.registrationForm__title}>Регістрація</Text>
         <TextInput
           style={styles.registrationForm__input}
-          // value={login}
+          value={state.login}
           placeholder="Логін"
           textContentType="name"
           onFocus={() => {
             setIsInputFocused(true);
           }}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, login: value }))
+          }
         />
         <TextInput
           style={styles.registrationForm__input}
-          // value={email}
+          value={state.email}
           placeholder="Адреса електронної пошти"
           textContentType="emailAddress"
           onFocus={() => {
             setIsInputFocused(true);
           }}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, email: value }))
+          }
         />
         <TextInput
           style={styles.registrationForm__input}
-          // value={password}
+          value={state.password}
           placeholder="Пароль"
           secureTextEntry={true}
           textContentType="password"
           onFocus={() => {
             setIsInputFocused(true);
           }}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, password: value }))
+          }
         />
 
         <TouchableOpacity
