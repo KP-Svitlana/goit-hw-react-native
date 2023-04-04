@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 16,
-    // marginBottom: 78,
   },
   registrationForm__logInBtnText: {
     color: "#1B4371",

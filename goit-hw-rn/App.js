@@ -7,6 +7,7 @@ import {
   Platform,
 } from "react-native";
 import { RegistrationScreen } from "./Components/Screens/RegistrationScreen";
+import { LoginScreen } from "./Components/Screens/LoginScreen";
 
 export default function App() {
   return (
@@ -19,7 +20,8 @@ export default function App() {
           style={styles.keyboardContainer}
           behavior={Platform.OS === "ios" ? "padding" : null}
         >
-          <RegistrationScreen />
+          {/* <RegistrationScreen /> */}
+          <LoginScreen />
         </KeyboardAvoidingView>
       </ImageBackground>
 
