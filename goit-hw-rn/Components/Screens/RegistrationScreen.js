@@ -18,6 +18,11 @@ const initialState = {
 
 export function RegistrationScreen() {
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState({
+    login: false,
+    email: false,
+    password: false,
+  });
   const [state, setState] = useState(initialState);
 
   const keyboardOff = () => {
@@ -27,42 +32,71 @@ export function RegistrationScreen() {
     setState(initialState);
   };
 
+  const hendlerInputFocus = (textInput) => {
+    setIsFocused({ [textInput]: true });
+  };
+
+  const hendlerInputBlure = (textInput) => {
+    setIsFocused({ [textInput]: false });
+  };
+
   return (
     <TouchableWithoutFeedback onPress={keyboardOff}>
       <View style={styles.registrationForm}>
         <Text style={styles.registrationForm__title}>Регістрація</Text>
         <TextInput
-          style={styles.registrationForm__input}
+          style={{
+            ...styles.registrationForm__input,
+            borderColor: isFocused.login ? "#FF6C00" : "#E8E8E8",
+          }}
           value={state.login}
           placeholder="Логін"
           textContentType="name"
           onFocus={() => {
             setIsInputFocused(true);
+            hendlerInputFocus("login");
+          }}
+          onBlur={() => {
+            hendlerInputBlure("login");
           }}
           onChangeText={(value) =>
             setState((prevState) => ({ ...prevState, login: value }))
           }
         />
         <TextInput
-          style={styles.registrationForm__input}
+          style={{
+            ...styles.registrationForm__input,
+            borderColor: isFocused.email ? "#FF6C00" : "#E8E8E8",
+          }}
           value={state.email}
           placeholder="Адреса електронної пошти"
           textContentType="emailAddress"
           onFocus={() => {
             setIsInputFocused(true);
+            hendlerInputFocus("email");
+          }}
+          onBlur={() => {
+            hendlerInputBlure("email");
           }}
           onChangeText={(value) =>
             setState((prevState) => ({ ...prevState, email: value }))
           }
         />
         <TextInput
-          style={styles.registrationForm__input}
+          style={{
+            ...styles.registrationForm__input,
+            borderColor: isFocused.password ? "#FF6C00" : "#E8E8E8",
+          }}
           value={state.password}
           placeholder="Пароль"
           secureTextEntry={true}
           textContentType="password"
           onFocus={() => {
             setIsInputFocused(true);
+            hendlerInputFocus("password");
+          }}
+          onBlur={() => {
+            hendlerInputBlure("password");
           }}
           onChangeText={(value) =>
             setState((prevState) => ({ ...prevState, password: value }))
@@ -118,7 +152,7 @@ const styles = StyleSheet.create({
     padding: 16,
     color: "#BDBDBD",
     backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
+
     borderRadius: 8,
   },
   registrationForm__registerBtn: {

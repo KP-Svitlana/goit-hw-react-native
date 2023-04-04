@@ -6,48 +6,103 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
+
+const initialState = {
+  email: "",
+  password: "",
+};
 
 export function LoginScreen() {
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState({
+    email: false,
+    password: false,
+  });
+  const [state, setState] = useState(initialState);
+
+  const keyboardOff = () => {
+    setIsInputFocused(false);
+    Keyboard.dismiss();
+    console.log(state);
+    setState(initialState);
+  };
+
+  const hendlerInputFocus = (textInput) => {
+    setIsFocused({ [textInput]: true });
+  };
+
+  const hendlerInputBlure = (textInput) => {
+    setIsFocused({ [textInput]: false });
+  };
 
   return (
-    <View style={styles.loginForm}>
-      <Text style={styles.loginForm__title}>Увійти</Text>
-      <TextInput
-        style={styles.loginForm__input}
-        placeholder="Адреса електронної пошти"
-        textContentType="emailAddress"
-        onFocus={() => {
-          setIsInputFocused(true);
-        }}
-      />
-      <TextInput
-        style={styles.loginForm__input}
-        placeholder="Пароль"
-        secureTextEntry={true}
-        textContentType="password"
-        onFocus={() => {
-          setIsInputFocused(true);
-        }}
-      />
+    <TouchableWithoutFeedback onPress={keyboardOff}>
+      <View style={styles.loginForm}>
+        <Text style={styles.loginForm__title}>Увійти</Text>
+        <TextInput
+          style={{
+            ...styles.loginForm__input,
+            borderColor: isFocused.email ? "#FF6C00" : "#E8E8E8",
+          }}
+          placeholder="Адреса електронної пошти"
+          textContentType="emailAddress"
+          value={state.email}
+          onFocus={() => {
+            setIsInputFocused(true);
+            hendlerInputFocus("email");
+          }}
+          onBlur={() => {
+            hendlerInputBlure("email");
+          }}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, email: value }))
+          }
+        />
+        <TextInput
+          style={{
+            ...styles.loginForm__input,
+            borderColor: isFocused.password ? "#FF6C00" : "#E8E8E8",
+          }}
+          placeholder="Пароль"
+          secureTextEntry={true}
+          textContentType="password"
+          value={state.password}
+          onFocus={() => {
+            setIsInputFocused(true);
+            hendlerInputFocus("password");
+          }}
+          onBlur={() => {
+            hendlerInputBlure("password");
+          }}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, password: value }))
+          }
+        />
 
-      <TouchableOpacity activeOpacity={0.7} style={styles.loginForm__loginBtn}>
-        <Text style={styles.loginForm__loginBtnText}>Увійти</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.loginForm__loginBtn}
+          onPress={keyboardOff}
+        >
+          <Text style={styles.loginForm__loginBtnText}>Увійти</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={{
-          ...styles.loginForm__registerBtn,
-          marginBottom: isInputFocused ? 32 : 145,
-        }}
-      >
-        <Text style={styles.loginForm__registerBtnText}>
-          Нема аккаунта? Зареєструйся
-        </Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{
+            ...styles.loginForm__registerBtn,
+            marginBottom: isInputFocused ? 32 : 145,
+          }}
+        >
+          <Text style={styles.loginForm__registerBtnText}>
+            Нема облікового запису? Зареєструйся
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -74,9 +129,10 @@ const styles = StyleSheet.create({
     padding: 16,
     color: "#BDBDBD",
     backgroundColor: "#F6F6F6",
-    borderColor: "#E8E8E8",
+
     borderRadius: 8,
   },
+
   loginForm__loginBtn: {
     backgroundColor: "#FF6C00",
     height: 50,
